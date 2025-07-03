@@ -5,7 +5,8 @@ __pycache__/
 
 # C extensions
 *.so
-
+desktop_link/
+n8n_data/
 # Distribution / packaging
 .Python
 build/

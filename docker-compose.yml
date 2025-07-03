@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # API FastAPI para processamento de faturas
+  bonett-studio-flow-api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: bonett-studio-flow-api
+    ports:
+      - "8080:8080"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - ENVIRONMENT=production
+    volumes:
+      - ./desktop_link:/app/desktop
+    networks:
+      - bonett-studio-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # N8N para automação de workflows
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n_studio_flow
+    ports:
+      - "5678:5678"
+    environment:
+      - DB_TYPE=sqlite
+      - DB_SQLITE_PATH=/home/node/.n8n/database.sqlite
+      - GENERIC_TIMEZONE=America/Sao_Paulo
+      - N8N_RUNNERS_ENABLED=true
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - WEBHOOK_URL=http://localhost:5678
+      - N8N_METRICS=true
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+      - ./desktop_link:/home/node/desktop
+    networks:
+      - bonett-studio-network
+    restart: unless-stopped
+    depends_on:
+      bonett-studio-flow-api:
+        condition: service_healthy
+
+networks:
+  bonett-studio-network:
+    driver: bridge

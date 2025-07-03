@@ -16,7 +16,7 @@ A **Bonett Studio Flow API** é uma solução robusta para processamento de víd
 - ✂️ **Corte de Vídeos** - Edite e corte vídeos com precisão
 - 🏷️ **Marca D'água** - Aplique watermarks para proteger seu conteúdo
 - 🎥 **Processamento Geral** - Ferramentas diversas para manipulação de vídeo
-- 🟢 **Chroma Key** - Remova fundos verdes profissionalmente  
+- 🟢 **Chroma Key** - Remova fundos verdes profissionalmente
 - 🎵 **Áudio** - Mixe, processe e adicione áudios aos vídeos
 
 ## 🔧 Tecnologias
@@ -35,6 +35,7 @@ Antes de começar, certifique-se de ter instalado:
 - [Git](https://git-scm.com/)
 
 ### Verificar instalações:
+
 ```bash
 python --version
 ffmpeg -version
@@ -44,12 +45,14 @@ git --version
 ## 🚀 Instalação e Execução
 
 ### 1. Clone o repositório
+
 ```bash
 git clone https://github.com/seu-usuario/bonett-studio-flow.git
 cd bonett-studio-flow
 ```
 
 ### 2. Crie um ambiente virtual
+
 ```bash
 python -m venv venv
 
@@ -61,11 +64,13 @@ source venv/bin/activate
 ```
 
 ### 3. Instale as dependências
+
 ```bash
 pip install -r requirements.txt
 ```
 
 ### 4. Execute a API
+
 ```bash
 python -m app.main
 ```
@@ -82,53 +87,76 @@ Após executar a API, acesse:
 
 ## 🛠️ Endpoints Principais
 
-| Serviço | Endpoint Base | Descrição |
-|---------|---------------|-----------|
-| Banner | `/api/v1/banner/*` | Adição de banners em vídeos |
-| Corte | `/api/v1/cut/*` | Ferramentas de edição e corte |
-| Marca D'água | `/api/v1/watermark/*` | Aplicação de watermarks |
-| Processamento | `/api/v1/video/*` | Ferramentas gerais de vídeo |
-| Chroma Key | `/api/v1/green-screen/*` | Remoção de fundo verde |
-| Áudio | `/api/v1/audio/*` | Processamento de áudio |
+| Serviço       | Endpoint Base            | Descrição                     |
+| ------------- | ------------------------ | ----------------------------- |
+| Banner        | `/api/v1/banner/*`       | Adição de banners em vídeos   |
+| Corte         | `/api/v1/cut/*`          | Ferramentas de edição e corte |
+| Marca D'água  | `/api/v1/watermark/*`    | Aplicação de watermarks       |
+| Processamento | `/api/v1/video/*`        | Ferramentas gerais de vídeo   |
+| Chroma Key    | `/api/v1/green-screen/*` | Remoção de fundo verde        |
+| Áudio         | `/api/v1/audio/*`        | Processamento de áudio        |
 
 ## 📁 Estrutura do Projeto
 
 ```
-bonett-studio-flow/
-├── app/
-│   ├── __init__.py
-│   ├── main.py              # Aplicação principal
-│   ├── routers/             # Rotas da API
-│   │   ├── __init__.py
-│   │   ├── banner_router.py
-│   │   ├── cut_router.py
-│   │   ├── watermark_router.py
-│   │   ├── video_processing_router.py
-│   │   ├── green_screen_router.py
-│   │   └── audio_router.py
-│   └── services/            # Lógica de negócio
-│       └── audio_service.py
-├── requirements.txt
-└── README.md
+bonett-studio-flow
+├─ app
+│  ├─ core
+│  │  └─ __init__.py
+│  ├─ main.py
+│  ├─ models
+│  │  ├─ audio_models.py
+│  │  ├─ banner_models.py
+│  │  ├─ cut_models.py
+│  │  ├─ green_screen_models.py
+│  │  ├─ video_processing.py
+│  │  ├─ watermark_models.py
+│  │  └─ __init__.py
+│  ├─ routers
+│  │  ├─ audio_router.py
+│  │  ├─ banner_router.py
+│  │  ├─ cut_router.py
+│  │  ├─ green_screen_router.py
+│  │  ├─ video_processing_router.py
+│  │  ├─ watermark_router.py
+│  │  └─ __init__.py
+│  ├─ services
+│  │  ├─ audio_service.py
+│  │  ├─ banner_service.py
+│  │  ├─ cut_service.py
+│  │  ├─ green_screen_service.py
+│  │  ├─ video_processing_service.py
+│  │  ├─ watermark_service.py
+│  │  └─ __init__.py
+│  └─ __init__.py
+├─ desktop_link
+├─ docker-compose.yml
+├─ README.md
+└─ requirements.txt
+
 ```
 
 ## 🎯 Formatos Suportados
 
 ### Vídeo
+
 - `.mp4` - Formato principal recomendado
 - `.mkv`, `.avi`, `.mov`, `.flv`, `.wmv` - Formatos adicionais
 
 ### Áudio
+
 - `.mp3` - Formato principal recomendado
 - `.wav`, `.aac`, `.m4a` - Formatos adicionais
 
 ### Imagem
+
 - `.png` - Formato principal recomendado
 - `.jpg`, `.jpeg`, `.gif` - Formatos adicionais
 
 ## 🔧 Configuração
 
 ### Variáveis de Ambiente (opcional)
+
 ```bash
 # .env
 API_HOST=0.0.0.0
@@ -138,11 +166,13 @@ FFMPEG_PATH=/usr/bin/ffmpeg  # Se necessário especificar
 ```
 
 ### Configuração do FFmpeg
+
 Certifique-se de que o FFmpeg está no PATH do sistema ou configure o caminho manualmente nos serviços.
 
 ## 🧪 Exemplo de Uso
 
 ### Mixar áudio com vídeo (Python)
+
 ```python
 import requests
 
@@ -161,6 +191,7 @@ print(response.json())
 ```
 
 ### Via cURL
+
 ```bash
 curl -X POST "http://localhost:8080/api/v1/audio/mix" \
   -F "video_file=@video.mp4" \
@@ -173,6 +204,7 @@ curl -X POST "http://localhost:8080/api/v1/audio/mix" \
 ### Problemas Comuns
 
 **1. Erro: "FFmpeg not found"**
+
 ```bash
 # Ubuntu/Debian
 sudo apt install ffmpeg
@@ -180,17 +212,19 @@ sudo apt install ffmpeg
 # Windows (via Chocolatey)
 choco install ffmpeg
 
-# macOS (via Homebrew)  
+# macOS (via Homebrew)
 brew install ffmpeg
 ```
 
 **2. Erro de importação de módulos**
+
 ```bash
 # Execute sempre da pasta raiz do projeto
 python -m app.main
 ```
 
 **3. Porta já em uso**
+
 ```bash
 # Mude a porta no main.py ou mate o processo
 lsof -ti:8080 | xargs kill -9  # Linux/Mac
@@ -222,8 +256,8 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 ## 👨‍💻 Autor
 
 **Seu Nome**
-- GitHub: [@bonettdreans](https://github.com/bonettdreans)
 
+- GitHub: [@bonettdreans](https://github.com/bonettdreans)
 
 ---
 

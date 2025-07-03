@@ -8,6 +8,9 @@ from concurrent.futures import ThreadPoolExecutor
 
 
 class BannerService:
+    _video_extensions = {".mp4", ".mkv", ".avi", ".mov", ".flv", ".wmv"}
+    _executor = ThreadPoolExecutor(max_workers=max(4, os.cpu_count() or 4))
+
     @staticmethod
     def add_banner(
         video_path: str,
@@ -161,7 +164,7 @@ class BannerService:
 
             # Usar executor compartilhado se num_threads não for especificado
             if num_threads is None:
-                executor = VideoProcessor._executor
+                executor = BannerService._executor
             else:
                 executor = concurrent.futures.ThreadPoolExecutor(
                     max_workers=num_threads)
